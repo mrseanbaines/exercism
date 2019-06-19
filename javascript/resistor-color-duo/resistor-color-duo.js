@@ -1,8 +1,15 @@
-//
-// This is only a SKELETON file for the 'Resistor Color Duo' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+const colors = {
+  brown: 1,
+  black: 0,
+  blue: 6,
+  grey: 8,
+  yellow: 4,
+  violet: 7,
+  orange: 3,
+};
 
-export const value = () => {
-  throw new Error("Remove this statement and implement this function");
+export const value = bands => {
+  return Number(
+    bands.reduce((result, band) => result + colors[band].toString(), ''),
+  );
 };
