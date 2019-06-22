@@ -1,8 +1,10 @@
-//
-// This is only a SKELETON file for the 'Armstrong numbers' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
-
-export const validate = () => {
-  throw new Error("Remove this statement and implement this function");
+export const validate = input => {
+  return (
+    input
+      .toString()
+      .split('')
+      .reduce((sum, num, i, arr) => {
+        return sum + Math.pow(parseInt(num, 10), arr.length);
+      }, 0) === input
+  );
 };
