@@ -1,15 +1,16 @@
 const colors = {
-  brown: 1,
   black: 0,
-  blue: 6,
-  grey: 8,
-  yellow: 4,
-  violet: 7,
+  brown: 1,
+  red: 2,
   orange: 3,
+  yellow: 4,
+  green: 5,
+  blue: 6,
+  violet: 7,
+  grey: 8,
+  white: 9
 };
 
 export const value = bands => {
-  return Number(
-    bands.reduce((result, band) => result + colors[band].toString(), ''),
-  );
+  return Number(bands.map(band => colors[band]).join(""));
 };
