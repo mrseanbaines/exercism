@@ -3,25 +3,6 @@
 // convenience to get you started writing code faster.
 //
 
-export const encode = (str) => {
-  const segments = str.match(/([\w\s])(\1+)?/g) || []
+export const encode = (str) => str.replace(/([\w\s])\1+/g, (match, char) => match.length + char)
 
-  if (!segments.length) {
-    return str
-  }
-
-  return segments.map((segment) => (segment.length > 1 ? segment.length : '') + segment.charAt(0)).join('')
-}
-
-export const decode = (str) => {
-  const segments = str.match(/([\d]+)?([\w+\s])/g) || []
-
-  if (!segments.length) {
-    return str
-  }
-
-  return segments
-    .map((segment) => segment.match(/([\d]+)?([\w+\s])/) || [segment])
-    .map(([match, num, char]) => (num && char ? char.repeat(num) : match))
-    .join('')
-}
+export const decode = (str) => str.replace(/(\d+)([\w\s])/g, (_, num, char) => char.repeat(num))
