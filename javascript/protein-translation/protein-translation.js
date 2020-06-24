@@ -1,3 +1,5 @@
+const stopCodons = ['UAA', 'UAG', 'UGA']
+
 const proteins = {
   Methionine: ['AUG'],
   Phenylalanine: ['UUU', 'UUC'],
@@ -6,31 +8,25 @@ const proteins = {
   Tyrosine: ['UAU', 'UAC'],
   Cysteine: ['UGU', 'UGC'],
   Tryptophan: ['UGG'],
-  STOP: ['UAA', 'UAG', 'UGA'],
-};
+}
 
-const getProtein = (obj, input) => {
-  const match = Object.entries(obj).find(arr =>
-    arr[1].some(codon => codon === input),
-  );
+const isValidCodon = (codon) => {
+  const validCodons = Object.values(proteins).flat()
 
-  if (match) {
-    return match[0];
-  }
+  return validCodons.includes(codon)
+}
 
-  throw new Error('Invalid codon');
-};
+export const translate = (RNA = '') => {
+  const codons = RNA.match(/\w{1,3}/g) || []
+  const stopCodonIndex = codons.findIndex((codon) => stopCodons.includes(codon))
 
-export const translate = (RNA = []) => {
-  const codons = [];
+  return codons.slice(0, stopCodonIndex !== -1 ? stopCodonIndex : codons.length).map((codon) => {
+    if (!isValidCodon(codon)) {
+      throw new Error('Invalid codon')
+    }
 
-  for (let i = 0; i < RNA.length; i += 3) {
-    const codon = RNA.substring(i, i + 3);
+    const [protein] = Object.entries(proteins).find(([_, codons]) => codons.includes(codon))
 
-    if (getProtein(proteins, codon) === 'STOP') break;
-
-    codons.push(codon);
-  }
-
-  return codons.map(codon => getProtein(proteins, codon));
-};
+    return protein
+  })
+}
