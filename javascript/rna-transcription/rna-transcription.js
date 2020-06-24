@@ -1,4 +1,4 @@
-export const toRna = (dna) => {
+export const toRna = dna => {
   const map = {
     G: 'C',
     C: 'G',
@@ -8,6 +8,6 @@ export const toRna = (dna) => {
 
   return dna
     .split('')
-    .map((nucleotide) => map[nucleotide])
+    .map(nucleotide => map[nucleotide])
     .join('')
 }

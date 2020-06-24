@@ -10,7 +10,7 @@ const proteins = {
   Tryptophan: ['UGG'],
 }
 
-const isValidCodon = (codon) => {
+const isValidCodon = codon => {
   const validCodons = Object.values(proteins).flat()
 
   return validCodons.includes(codon)
@@ -18,9 +18,9 @@ const isValidCodon = (codon) => {
 
 export const translate = (RNA = '') => {
   const codons = RNA.match(/\w{1,3}/g) || []
-  const stopCodonIndex = codons.findIndex((codon) => stopCodons.includes(codon))
+  const stopCodonIndex = codons.findIndex(codon => stopCodons.includes(codon))
 
-  return codons.slice(0, stopCodonIndex !== -1 ? stopCodonIndex : codons.length).map((codon) => {
+  return codons.slice(0, stopCodonIndex !== -1 ? stopCodonIndex : codons.length).map(codon => {
     if (!isValidCodon(codon)) {
       throw new Error('Invalid codon')
     }

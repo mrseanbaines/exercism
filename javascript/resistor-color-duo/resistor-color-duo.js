@@ -8,9 +8,9 @@ const colors = {
   blue: 6,
   violet: 7,
   grey: 8,
-  white: 9
-};
+  white: 9,
+}
 
 export const value = bands => {
-  return Number(bands.map(band => colors[band]).join(""));
-};
+  return Number(bands.map(band => colors[band]).join(''))
+}

@@ -1,4 +1,4 @@
-export const isArmstrongNumber = (input) => {
+export const isArmstrongNumber = input => {
   return (
     input
       .toString()
