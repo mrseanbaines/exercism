@@ -16,17 +16,32 @@ const isValidCodon = codon => {
   return validCodons.includes(codon)
 }
 
-export const translate = (RNA = '') => {
-  const codons = RNA.match(/\w{1,3}/g) || []
+const trimStopCodons = codons => {
   const stopCodonIndex = codons.findIndex(codon => stopCodons.includes(codon))
 
-  return codons.slice(0, stopCodonIndex !== -1 ? stopCodonIndex : codons.length).map(codon => {
+  if (stopCodonIndex !== -1) {
+    return codons.slice(0, stopCodonIndex)
+  }
+
+  return codons
+}
+
+const getProteinFromCodon = codon => {
+  const [protein] = Object.entries(proteins).find(([_, codons]) => codons.includes(codon))
+
+  return protein
+}
+
+const chunkString = (str, length) => str.match(new RegExp(`\\w{1,${length}}`, 'g')) || []
+
+export const translate = (RNA = '') => {
+  const codons = chunkString(RNA, 3)
+
+  return trimStopCodons(codons).map(codon => {
     if (!isValidCodon(codon)) {
       throw new Error('Invalid codon')
     }
 
-    const [protein] = Object.entries(proteins).find(([_, codons]) => codons.includes(codon))
-
-    return protein
+    return getProteinFromCodon(codon)
   })
 }
