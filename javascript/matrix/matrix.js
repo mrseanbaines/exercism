@@ -3,10 +3,6 @@ export class Matrix {
     this.matrix = matrix
   }
 
-  getColumn(i) {
-    return this.rows.map(row => row[i])
-  }
-
   get rows() {
     return this.matrix.split(/\n/).map(row => row.split(' ').map(Number))
   }
