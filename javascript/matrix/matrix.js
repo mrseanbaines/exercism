@@ -1,15 +1,17 @@
 export class Matrix {
+  #matrix
+
   constructor(matrix) {
-    this.matrix = matrix
+    this.#matrix = matrix.split(/\n/).map(row => row.split(' ').map(Number))
   }
 
   get rows() {
-    return this.matrix.split(/\n/).map(row => row.split(' ').map(Number))
+    return this.#matrix
   }
 
   get columns() {
-    const getColumn = colIndex => this.rows.map(row => row[colIndex])
+    const getColumn = colIndex => this.#matrix.map(row => row[colIndex])
 
-    return this.rows[0].map((_, i) => getColumn(i))
+    return this.#matrix[0].map((_, i) => getColumn(i))
   }
 }
