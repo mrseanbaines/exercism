@@ -1,8 +1,15 @@
-//
-// This is only a SKELETON file for the 'ETL' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const transform = oldSystem => {
+  return Object.entries(oldSystem).reduce((newObj, [score, letters]) => {
+    const newSystem = letters.reduce((all, letter) => {
+      return {
+        ...all,
+        [letter.toLowerCase()]: Number(score),
+      }
+    }, {})
 
-export const transform = () => {
-  throw new Error("Remove this statement and implement this function");
-};
+    return {
+      ...newObj,
+      ...newSystem,
+    }
+  }, {})
+}
