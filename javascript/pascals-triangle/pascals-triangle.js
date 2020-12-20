@@ -1,8 +1,18 @@
-//
-// This is only a SKELETON file for the 'Pascals Triangle' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const rows = numRows => {
+  let prevRow
 
-export const rows = () => {
-  throw new Error("Remove this statement and implement this function");
-};
+  const triangle = Array.from(Array(numRows), (_, rowIndex) => {
+    const row = Array.from(Array(rowIndex + 1), (__, numIndex) => {
+      const leftNum = prevRow?.[numIndex - 1] || 0
+      const rightNum = prevRow?.[numIndex] || 0
+
+      return leftNum + rightNum || 1
+    })
+
+    prevRow = row
+
+    return row
+  })
+
+  return triangle
+}
